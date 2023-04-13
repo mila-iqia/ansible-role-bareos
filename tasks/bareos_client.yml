@@ -1,14 +1,8 @@
 ---
-- name: Make sure bareos-client is installed Debian
-  apt:
-    name: bareos-client
-  when: ansible_os_family == 'Debian' 
-
-- name: Make sure bareos-client is installed RHEL
-  ansible.builtin.yum:
+- name: Make sure bareos-client is installed
+  ansible.builtin.package:
     name: bareos-client
     state: present
-  when: ansible_os_family == 'RedHat'
 
 - name: Create config dir on client
   file:
