@@ -17,25 +17,25 @@
 
 - name: Add BareOS apt-key
   apt_key:
-    url: "http://download.bareos.org/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/Release.key"
+    url: "http://download.bareos.com/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/Release.key"
   when: ansible_os_family == 'Debian'
 
 - name: Ensure BareOS repo is present Debian
   apt_repository:
-    repo: "deb http://download.bareos.org/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/ /"
+    repo: "deb http://download.bareos.com/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/ /"
   when: ansible_os_family == 'Debian'
 
 - name: Import GPG key
   ansible.builtin.rpm_key:
     state: present
-    key: http://download.bareos.org/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/RPM-GPG-KEY
+    key: http://download.bareos.com/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/RPM-GPG-KEY
   when: ansible_os_family == 'RedHat'
 
 - name: Ensure BareOS repo is present RHEL
   ansible.builtin.yum_repository:
     name: bareos
     description: Bareos repo
-    baseurl: http://download.bareos.org/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/
+    baseurl: http://download.bareos.com/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}/
   when: ansible_os_family == 'RedHat'
 
 - name: Install && setup bareos client
