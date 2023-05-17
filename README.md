@@ -43,7 +43,7 @@ bareos_filesets:
     description: "Backup Foo"
     include_file: /home/foo
     exclude_file:
-      - /home/bar
+      - /home/foo/bar
 ```
 
 - `bareos_pools`: List of pools in following format:
