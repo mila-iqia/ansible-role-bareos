@@ -76,14 +76,6 @@
     group: bareos
     mode: '0640'
 
-- name: Create bareos fd director config file
-  template:
-    src: bareos-fd/director/bareos-dir.conf.j2
-    dest: /etc/bareos/bareos-fd.d/director/bareos-dir.conf
-    owner: bareos
-    group: bareos
-    mode: '0640'
-
 - name: Create bareos fileset config files
   template:
     src: bareos-dir/fileset/fileset.conf.j2
@@ -162,15 +154,6 @@
     group: bareos
     mode: '0640'
   loop: "{{ bareos_jobs }}"
-
-- name: Create bareos client config files
-  template:
-    src: bareos-dir/client/client.conf.j2
-    dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
-    owner: bareos
-    group: bareos
-    mode: '0640'
-  loop: "{{ bareos_clients }}"
 
 - name: Create bareos messages config files
   template:
