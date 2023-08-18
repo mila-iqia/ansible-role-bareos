@@ -24,6 +24,7 @@
     name: "{{ bareos_apt_monitoring_packages }}"
 
 - name: Setup bareos DB
+  when: bareos_setup_db
   block:
     - name: Check that bareos DB exists
       shell: psql -lqt | cut -d \| -f 1 | grep -qw bareos
@@ -41,9 +42,9 @@
         /usr/lib/bareos/scripts/make_bareos_tables &&
         /usr/lib/bareos/scripts/grant_bareos_privileges
       when: _bareos_db_exists.rc != 0
-  when: bareos_setup_db
 
 - name: Setup bareos DB monitoring
+  when: bareos_setup_db_sensu
   block:
     - name: Create Postgres Monitoring User
       become: true
@@ -60,7 +61,6 @@
         role: sensu
         objs: ALL_IN_SCHEMA
         privs: SELECT
-  when: bareos_setup_db_sensu
 
 - name: Create bareos dir director config file
   template:

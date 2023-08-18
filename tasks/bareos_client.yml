@@ -23,6 +23,7 @@
 
 # This block is not idempotent and should be used only as one-time update
 - name: Upgrade BareOS to specific version
+  when: bareos_version is defined
   block:
     - name: Stop before upgrade
       service:
@@ -47,4 +48,3 @@
       service:
         name: bareos-fd
         state: started
-  when: bareos_version is defined
