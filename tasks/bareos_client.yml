@@ -33,7 +33,6 @@
     - name: Update apt cache
       apt:
         update_cache: true
-      ignore_errors: true
 
     - name: Upgrade to specific version
       apt:
