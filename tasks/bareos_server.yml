@@ -163,8 +163,8 @@
     group: bareos
     mode: '0640'
   loop:
-      - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
-      - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
+    - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
+    - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
 
 - name: Change default catalog password
   ansible.builtin.lineinfile:
