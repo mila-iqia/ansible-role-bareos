@@ -28,14 +28,14 @@
 - name: Import GPG key
   ansible.builtin.rpm_key:
     state: present
-    key: {{ bareos_repo }}/RPM-GPG-KEY
+    key: "{{ bareos_repo }}/RPM-GPG-KEY"
   when: ansible_os_family == 'RedHat'
 
 - name: Ensure BareOS repo is present RHEL
   ansible.builtin.yum_repository:
     name: bareos
     description: Bareos repo
-    baseurl: {{ bareos_repo }}/
+    baseurl: "{{ bareos_repo }}/"
   when: ansible_os_family == 'RedHat'
 
 - name: Install && setup bareos client
