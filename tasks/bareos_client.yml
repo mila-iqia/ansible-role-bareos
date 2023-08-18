@@ -22,7 +22,8 @@
     - bareos_director.name is defined
 
 # This block is not idempotent and should be used only as one-time update
-- block:
+- name: Upgrade BareOS to specific version
+  block:
     - name: Stop before upgrade
       service:
         name: bareos-fd

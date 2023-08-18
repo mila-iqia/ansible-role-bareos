@@ -4,7 +4,7 @@
     name:
       - bareos
       - bareos-webui
-  notify: restart apache
+  notify: Restart apache
 
 - name: Ensure bareos postgresql is installed
   apt:
@@ -23,7 +23,8 @@
   apt:
     name: "{{ bareos_apt_monitoring_packages }}"
 
-- block:
+- name: Setup bareos DB
+  block:
     - name: Check that bareos DB exists
       shell: psql -lqt | cut -d \| -f 1 | grep -qw bareos
       become: true
@@ -42,7 +43,8 @@
       when: _bareos_db_exists.rc != 0
   when: bareos_setup_db
 
-- block:
+- name: Setup bareos DB monitoring
+  block:
     - name: Create Postgres Monitoring User
       become: true
       become_user: postgres
@@ -188,8 +190,8 @@
     owner: bareos
     group: bareos
   notify:
-    - reload bareos server
-    - restart apache
+    - Reload bareos server
+    - Restart apache
   when: bareos_setup_webui_admin_console
 
 - name: Make sure daemons are started
