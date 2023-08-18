@@ -4,6 +4,12 @@ bareos_db_package: postgresql-12
 bareos_install_client: false
 bareos_install_server: false
 bareos_register_clients: true
+
+# Defaults to Bareos Community Repository
+bareos_repo: "https://download.bareos.org/current/{{ bareos_os_version }}"
+# Bareos Subscription Repository
+# bareos_repo: "http://download.bareos.com/bareos/release/{{ bareos_release }}/{{ bareos_os_version }}"
+
 # Can be dangerous, use with care
 bareos_setup_db: false
 bareos_setup_db_sensu: false
