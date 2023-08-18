@@ -4,7 +4,7 @@
     name:
       - bareos
       - bareos-webui
-  notify: restart apache
+  notify: Restart apache
 
 - name: Ensure bareos postgresql is installed
   apt:
@@ -23,7 +23,9 @@
   apt:
     name: "{{ bareos_apt_monitoring_packages }}"
 
-- block:
+- name: Setup bareos DB
+  when: bareos_setup_db
+  block:
     - name: Check that bareos DB exists
       shell: psql -lqt | cut -d \| -f 1 | grep -qw bareos
       become: true
@@ -40,9 +42,10 @@
         /usr/lib/bareos/scripts/make_bareos_tables &&
         /usr/lib/bareos/scripts/grant_bareos_privileges
       when: _bareos_db_exists.rc != 0
-  when: bareos_setup_db
 
-- block:
+- name: Setup bareos DB monitoring
+  when: bareos_setup_db_sensu
+  block:
     - name: Create Postgres Monitoring User
       become: true
       become_user: postgres
@@ -58,7 +61,6 @@
         role: sensu
         objs: ALL_IN_SCHEMA
         privs: SELECT
-  when: bareos_setup_db_sensu
 
 - name: Create bareos dir director config file
   template:
@@ -163,8 +165,8 @@
     group: bareos
     mode: '0640'
   loop:
-      - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
-      - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
+    - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
+    - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
 
 - name: Change default catalog password
   ansible.builtin.lineinfile:
@@ -188,8 +190,8 @@
     owner: bareos
     group: bareos
   notify:
-    - reload bareos server
-    - restart apache
+    - Reload bareos server
+    - Restart apache
   when: bareos_setup_webui_admin_console
 
 - name: Make sure daemons are started

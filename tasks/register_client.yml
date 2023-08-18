@@ -10,7 +10,7 @@
   args:
     creates: "/etc/bareos/bareos-dir.d/client/{{ item.name }}.conf"
   register: _bconsole_output
-  notify: reload bareos server
+  notify: Reload bareos server
 
 - name: Generate md5sum from password
   shell: "echo -n {{ item.password }} | md5sum | awk '{print $1}'"
@@ -66,7 +66,7 @@
     timeout: 60
   delegate_to: "{{ item.ansible_delegate_hostname | default(item.name) }}"
 
-- name: Check {{ item.name }} client status
+- name: Check client status {{ item.name }}
   shell: >
     echo
     "status client={{ item.name }}"
@@ -90,7 +90,7 @@
     group: bareos
   when: item.enable_backup_job
   register: _bareos_backup_job
-  notify: reload bareos server
+  notify: Reload bareos server
 
 - name: Flush handlers, to make sure bareos is reloaded
   meta: flush_handlers
@@ -111,4 +111,4 @@
     path: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
     regexp: '^  Address = '
     line: '  Address = {{ item.address }}'
-  notify: reload bareos server
+  notify: Reload bareos server

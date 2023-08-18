@@ -1,8 +1,8 @@
 ---
 skip_list:
-  - '106'
-  - '306'
-  - '503'
+  - fqcn
+  - no-changed-when
+  - risky-shell-pipe
 exclude_paths:
   - molecule
-  - .drone.yml
+  - .github/
