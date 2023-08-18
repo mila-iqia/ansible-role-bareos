@@ -14,6 +14,7 @@ __Note:__ More options can be seen in `defaults/main.yml`
 - `bareos_email` - Email address used for messages (Daemon, Standard) and Catalog bootstrap
 - `bareos_dir_ip_eth` - Director ethernet IP address
 - `bareos_director` - If you need to override backup director IP address on your client's /etc/hosts
+- `bareos_repo` - Defaults to Bareos Community Repository. Can be changed to use the Bareos Subscription Repository
 ```
 bareos_director:
   ip: 10.0.0.1
