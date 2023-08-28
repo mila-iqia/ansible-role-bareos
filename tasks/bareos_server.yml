@@ -6,6 +6,13 @@
       - bareos-webui
   notify: Restart apache
 
+- name: Change default catalog password
+  ansible.builtin.lineinfile:
+    path: /etc/bareos/bareos-dir.d/catalog/MyCatalog.conf
+    regexp: '^  dbpassword ='
+    line: '  dbpassword = "{{ bareos_postgres_pass }}"'
+  when: bareos_postgres_pass is defined
+
 - name: Ensure bareos postgresql is installed
   apt:
     name: bareos-database-postgresql
@@ -174,13 +181,6 @@
   loop:
     - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
     - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
-
-- name: Change default catalog password
-  ansible.builtin.lineinfile:
-    path: /etc/bareos/bareos-dir.d/catalog/MyCatalog.conf
-    regexp: '^  dbpassword ='
-    line: '  dbpassword = "{{ bareos_postgres_pass }}"'
-  when: bareos_postgres_pass is defined
 
 - name: Add bconsole config file
   template:
