@@ -121,6 +121,37 @@
   loop: "{{ bareos_dir_storage }}"
   when: bareos_dir_storage is defined
 
+- name: Configure Storage Daemon block devices
+  when: bareos_devices is defined
+  block:
+    - name: Create file systems
+      community.general.filesystem:
+        fstype: "{{ item.fstype | default('ext4') }}"
+        dev: "{{ item.block_device }}"
+        force: false
+        state: present
+      loop: "{{ bareos_devices }}"
+      # Create file system only when block_device starts with '/dev/'
+      when: item.block_device[:5] == '/dev/'
+
+    - name: Mount Bareos block devices
+      ansible.posix.mount:
+        path: "{{ item.archive_device | default(item.arch_device) }}"
+        src: "{{ item.block_device }}"
+        fstype: "{{ item.fstype | default('ext4') }}"
+        opts: "{{ item.opts | default(omit) }}"
+        state: "{{ item.state | default('mounted') }}"
+      loop: "{{ bareos_devices }}"
+
+    - name: Set permissions on archive devices
+      ansible.builtin.file:
+        path: "{{ item.archive_device | default(item.arch_device) }}"
+        owner: "bareos"
+        group: "bareos"
+        mode: "{{ item.mode | default('0750') }}"
+        state: directory
+      loop: "{{ bareos_devices }}"
+
 - name: Create bareos device config files
   template:
     src: bareos-sd/device/device.conf.j2
