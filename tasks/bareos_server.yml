@@ -13,6 +13,12 @@
     line: '  dbpassword = "{{ bareos_postgres_pass }}"'
   when: bareos_postgres_pass is defined
 
+- name: Remove dbaddress from catalog configuration
+  ansible.builtin.lineinfile:
+    path: /etc/bareos/bareos-dir.d/catalog/MyCatalog.conf
+    regexp: '^  dbaddress ='
+    state: absent
+
 - name: Ensure bareos postgresql is installed
   apt:
     name: bareos-database-postgresql
