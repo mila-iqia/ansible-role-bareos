@@ -1,2 +1,3 @@
 ---
 bareos_install_client: true
+bareos_dir_ip_eth: server

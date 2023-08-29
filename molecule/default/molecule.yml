@@ -2,21 +2,23 @@
 dependency:
   name: galaxy
 driver:
-  name: hetznercloud
+  name: docker
 platforms:
-  - name: ${REPO_NAME}-${OS_VERSION}-${REF}-server
-    server_type: cx11
-    image: ${MOLECULE_IMAGE}
-    custom_ssh_key_name: molecule.admin
+  - name: server
+    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bullseye}"
+    override_command: false
+    privileged: true
+    pre_build_image: true
     groups:
-      - server
-  - name: ${REPO_NAME}-${OS_VERSION}-${REF}-client
-    server_type: cx11
-    image: ${MOLECULE_IMAGE}
-    custom_ssh_key_name: molecule.admin
+      - servers
+  - name: client
+    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bullseye}"
+    override_command: false
+    privileged: true
+    pre_build_image: true
     groups:
-      - client
+      - clients
 provisioner:
   name: ansible
 verifier:
-  name: testinfra
+  name: ansible

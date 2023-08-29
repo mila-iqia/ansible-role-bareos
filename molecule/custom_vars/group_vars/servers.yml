@@ -1,6 +1,9 @@
 ---
 bareos_install_server: true
 bareos_setup_db: true
+bareos_dir_ip_eth: server
+bareos_director_password: director_password
+bareos_storage_password: storage_password
 bareos_sensu_postgres_pass: password
 bareos_clients:
   - name: "{{ lookup('env', 'REPO_NAME') }}-{{ lookup('env', 'OS_VERSION') }}-{{ lookup('env', 'REF') }}-client"

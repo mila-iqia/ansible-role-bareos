@@ -15,10 +15,10 @@
 
     - name: Add server to /etc/hosts
       shell: echo "{{ hostvars[item].ansible_default_ipv4.address }} server {{ item }}" >> /etc/hosts
-      with_items: "{{ groups['server'] }}"
+      with_items: "{{ groups['servers'] }}"
       changed_when: false
 
     - name: Add client server to /etc/hosts
       shell: echo "{{ hostvars[item].ansible_default_ipv4.address }} client {{ item }}" >> /etc/hosts
-      with_items: "{{ groups['client'] }}"
+      with_items: "{{ groups['clients'] }}"
       changed_when: false
