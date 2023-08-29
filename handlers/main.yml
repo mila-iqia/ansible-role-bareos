@@ -6,3 +6,8 @@
   service:
     name: apache2
     state: restarted
+
+- name: Restart bareos-storage
+  ansible.builtin.systemd:
+    name: bareos-storage.service
+    state: restarted
