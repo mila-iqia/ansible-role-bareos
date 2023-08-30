@@ -33,7 +33,9 @@
         state: present
       loop: "{{ bareos_devices }}"
       # Create file system only when block_device starts with '/dev/'
-      when: item.block_device[:5] == '/dev/'
+      when:
+        - item.block_device is defined
+        - item.block_device[:5] == '/dev/'
 
     - name: Mount Bareos block devices
       ansible.posix.mount:
@@ -43,6 +45,7 @@
         opts: "{{ item.opts | default(omit) }}"
         state: "{{ item.state | default('mounted') }}"
       loop: "{{ bareos_devices }}"
+      when: item.block_device is defined
 
     - name: Set permissions on archive devices
       ansible.builtin.file:
