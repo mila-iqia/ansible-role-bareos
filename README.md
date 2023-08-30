@@ -77,8 +77,17 @@ bareos_dir_storage:
 ```
 bareos_devices:
   - name: FileStorageFoo
-    arch_device: /backup
+    archive_device: /backup
+    block_device: /dev/mapper/backup    # optional
+    fstype: 'ext4'                      # default
+    mode: '0750'                        # default
+    opts: ''                            # optional, for ansible.posix.mount
+    state: 'mounted'                    # default, for ansible.posix.mount
 ```
+
+> [!WARNING]
+> The `bareos_devices[*].arch_device` is deprecated and replaced by
+> `bareos_devices[*].archive_device`.
 
 `bareos_schedules`: List of schedules in following format:
 

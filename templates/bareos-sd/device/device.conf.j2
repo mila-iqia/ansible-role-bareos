@@ -2,7 +2,7 @@
 Device {
   Name = "{{ item.name }}"
   Media Type = File
-  Archive Device = {{ item.arch_device }}
+  Archive Device = {{ item.archive_device | default(item.arch_device) }}
   LabelMedia = yes;                   # lets Bareos label unlabeled media
   Random Access = yes;
   AutomaticMount = yes;               # when device opened, read it
