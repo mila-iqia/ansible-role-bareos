@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 JobDefs {
   Name = "{{ item.name }}"
-  Type = Backup
+  Type = {{ item.type | default('Backup') }}
   Level = {{ item.level }}
   Client = {{ item.client }}
   FileSet = "{{ item.fileset }}"
