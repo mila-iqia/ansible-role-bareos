@@ -53,8 +53,9 @@ bareos_filesets:
 bareos_pools:
   - name: FullFoo
     retention: "365 days"
-    max_vol_bytes: 50G
-    max_vol: 1000
+    max_vol_bytes: 50G                  # optional
+    max_vol: 1000                       # optional
+    next_pool: FullFooOffsite           # optional
     label: "FullFoo-"
   - name: IncrementalFoo
     retention: "365 days"

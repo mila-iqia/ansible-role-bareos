@@ -11,5 +11,8 @@ Pool {
 {% if item.max_vol is defined %}
   Maximum Volumes = {{ item.max_vol }}
 {% endif %}
+{% if item.next_pool is defined %}
+  Next Pool = {{ item.next_pool }}
+{% endif %}
   Label Format = "{{ item.label }}"
 }
