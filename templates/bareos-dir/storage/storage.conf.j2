@@ -3,7 +3,7 @@ Storage {
   Name = "{{ item.name }}"
   Address = "{{ item.bareos_dir_ip }}"
   Password = "{{ bareos_storage_password }}"
-  Media Type = File
+  Media Type = {{ item.media_type | default('File') }}
   Device = {{ item.device }}
   Maximum Concurrent Jobs = 50
 }
