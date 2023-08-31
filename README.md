@@ -57,11 +57,13 @@ bareos_pools:
     max_vol: 1000                       # optional
     next_pool: FullFooOffsite           # optional
     label: "FullFoo-"
+    storage: FileFoo                    # optional if defined at the JobDefs level
   - name: IncrementalFoo
     retention: "365 days"
     max_vol_bytes: 50G
     max_vol: 1000
     label: "IncrementalFoo-"
+    storage: FileFoo                    # optional if defined at the JobDefs level
 ```
 
 `bareos_dir_storage`: List of storages in following format:
@@ -110,7 +112,7 @@ bareos_jobdefs:
     client: foo-fd
     fileset: FilesetFoo
     schedule: ScheduleFoo
-    storage: FileFoo
+    storage: FileFoo                    # optional
     pool: IncrementalFoo
     full_pool: FullFoo
     incr_pool: IncrementalFoo
