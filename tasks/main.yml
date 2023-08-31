@@ -46,6 +46,10 @@
   include_tasks: bareos_server.yml
   when: bareos_install_server
 
+- name: Install Bareos Storage Daemon
+  include_tasks: bareos_sd.yml
+  when: "'bareos_storage' in group_names or bareos_install_server"
+
 - name: Register clients
   include_tasks: register_client.yml
   with_items: "{{ bareos_clients }}"
