@@ -111,6 +111,7 @@ bareos_jobdefs:
     pool: IncrementalFoo
     full_pool: FullFoo
     incr_pool: IncrementalFoo
+    type: JOB_TYPE                      # optional, defaults to 'Backup'
 ```
 
 `bareos_jobs`: List of jobs in following format:
