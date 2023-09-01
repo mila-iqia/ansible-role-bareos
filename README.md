@@ -71,6 +71,7 @@ bareos_dir_storage:
   - name: FileFoo
     device: FileStorageFoo
     bareos_dir_ip: 10.0.0.1
+    media_type: File2                   # optional, defaults to 'File'
 ```
 
 `bareos_devices`: List of devices in following format:
