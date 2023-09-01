@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 Device {
   Name = "{{ item.name }}"
-  Media Type = File
+  Media Type = {{ item.media_type | default('File') }}
   Archive Device = {{ item.archive_device | default(item.arch_device) }}
   LabelMedia = yes;                   # lets Bareos label unlabeled media
   Random Access = yes;

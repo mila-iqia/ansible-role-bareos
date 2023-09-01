@@ -83,6 +83,7 @@ bareos_devices:
     mode: '0750'                        # default
     opts: ''                            # optional, for ansible.posix.mount
     state: 'mounted'                    # default, for ansible.posix.mount
+    media_type: File2                   # optional, defaults to 'File'
 ```
 
 > [!WARNING]
