@@ -14,5 +14,8 @@ Pool {
 {% if item.next_pool is defined %}
   Next Pool = {{ item.next_pool }}
 {% endif %}
+{% if item.storage is defined %}
+  Storage = {{ item.storage }}
+{% endif %}
   Label Format = "{{ item.label }}"
 }

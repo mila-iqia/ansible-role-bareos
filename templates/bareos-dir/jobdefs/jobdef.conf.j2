@@ -6,7 +6,9 @@ JobDefs {
   Client = {{ item.client }}
   FileSet = "{{ item.fileset }}"
   Schedule = "{{ item.schedule }}"
+{% if item.storage is defined %}
   Storage = {{ item.storage }}
+{% endif %}
   Messages = Standard
   Pool = {{ item.pool }}
   Priority = {{ item.priority | default('10') }}
