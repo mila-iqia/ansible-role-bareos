@@ -52,7 +52,7 @@ bareos_filesets:
 ```
 bareos_pools:
   - name: FullFoo
-    retention: "365 days"
+    retention: "365 days"               # optional
     max_vol_bytes: 50G                  # optional
     max_vol: 1000                       # optional
     next_pool: FullFooOffsite           # optional

@@ -4,7 +4,9 @@ Pool {
   Pool Type = Backup
   Recycle = yes
   AutoPrune = yes
+{% if item.retention is defined %}
   Volume Retention = {{ item.retention }}
+{% endif %}
 {% if item.max_vol_bytes is defined %}
   Maximum Volume Bytes = {{ item.max_vol_bytes }}
 {% endif %}
