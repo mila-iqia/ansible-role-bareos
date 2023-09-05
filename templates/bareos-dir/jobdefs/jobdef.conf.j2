@@ -1,23 +1,75 @@
 # {{ ansible_managed }}
-JobDefs {
+{#
+This template is used for both Job and JobDefs resource types.
+Keep the legacy defaults when the template is used to define JobDefs resources
+#}
+{{ _resource_type }} {
   Name = "{{ item.name }}"
-  Type = {{ item.type | default('Backup') }}
+{% if _resource_type == 'Job' and item.jobdef is defined %}
+  JobDefs = "{{ item.jobdef }}"
+{% endif %}
+{% if item.type is defined %}
+  Type = {{ item.type }}
+{% elif _resource_type == 'JobDefs' %}
+  Type = Backup
+{% endif %}
+{% if item.level is defined %}
   Level = {{ item.level }}
+{% endif %}
+{% if item.client is defined %}
   Client = {{ item.client }}
+{% endif %}
+{% if item.fileset is defined %}
   FileSet = "{{ item.fileset }}"
+{% endif %}
+{% if item.schedule is defined %}
   Schedule = "{{ item.schedule }}"
+{% endif %}
 {% if item.storage is defined %}
   Storage = {{ item.storage }}
 {% endif %}
+{% if item.messages is defined %}
+  Messages = {{ item.messages }}
+{% elif _resource_type == 'JobDefs' %}
   Messages = Standard
+{% endif %}
+{% if item.pool is defined %}
   Pool = {{ item.pool }}
-  Priority = {{ item.priority | default('10') }}
+{% endif %}
+{% if item.priority is defined %}
+  Priority = {{ item.priority }}
+{% elif _resource_type == 'JobDefs' %}
+  Priority = 10
+{% endif %}
+{% if item.write_bootstrap is defined %}
+  Write Bootstrap = "{{ item.write_bootstrap }}"
+{% elif _resource_type == 'JobDefs' %}
   Write Bootstrap = "/var/lib/bareos/%c.bsr"
+{% endif %}
+{% if item.full_pool is defined %}
   Full Backup Pool = {{ item.full_pool }}
+{% endif %}
 {% if item.incr_pool is defined %}
   Incremental Backup Pool = {{ item.incr_pool }}
 {% endif %}
+{% if item.max_concurrent_jobs is defined %}
+  Maximum Concurrent Jobs = {{ item.max_concurrent_jobs }}
+{% elif _resource_type == 'JobDefs' %}
+  Maximum Concurrent Jobs = 50
+{% endif %}
+{% if item.allow_dup_jobs is defined %}
+  Allow Duplicate Jobs = {{ item.allow_dup_jobs }}
+{% elif _resource_type == 'JobDefs' %}
   Allow Duplicate Jobs = no
+{% endif %}
+{% if item.cancel_lower_level_dup is defined %}
+  Cancel Lower Level Duplicates = {{ item.cancel_lower_level_dup }}
+{% elif _resource_type == 'JobDefs' %}
   Cancel Lower Level Duplicates = yes
+{% endif %}
+{% if item.cancel_queued_dup is defined %}
+  Cancel Queued Duplicates = {{ item.cancel_queued_dup }}
+{% elif _resource_type == 'JobDefs' %}
   Cancel Queued Duplicates = yes
+{% endif %}
 }
