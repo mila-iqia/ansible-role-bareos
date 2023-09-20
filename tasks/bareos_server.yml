@@ -124,6 +124,8 @@
   when: bareos_schedules is defined
 
 - name: Create bareos jobdef config files
+  vars:
+    _resource_type: 'JobDefs'
   template:
     src: bareos-dir/jobdefs/jobdef.conf.j2
     dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf
@@ -142,6 +144,8 @@
     mode: '0640'
 
 - name: Create bareos job config files
+  vars:
+    _resource_type: 'Job'
   template:
     src: bareos-dir/job/job.conf.j2
     dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
