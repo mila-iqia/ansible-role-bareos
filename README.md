@@ -42,10 +42,21 @@ bareos_clients:
 bareos_filesets:
   - name: FilesetFoo
     description: "Backup Foo"
-    include_file: /home/foo
-    exclude_file:
+    include_files:
+      - /home/foo
+    exclude_files:
       - /home/foo/bar
 ```
+
+> [!WARNING]
+> The `bareos_filesets[*].include_file` is deprecated and replaced by
+> `bareos_filesets[*].include_files` that allows to define a list of File path
+> to include.
+
+> [!WARNING]
+> The `bareos_filesets[*].exclude_file` is deprecated and replaced by
+> `bareos_filesets[*].exclude_files` to reflect the ability to exclude a list
+> of File path.
 
 - `bareos_pools`: List of pools in following format:
 

@@ -18,7 +18,14 @@ FileSet {
     }
 {% endfor %}
 {% endif %}
+{% if item.include_files is defined %}
+{% for include_file in item.include_files %}
+    File = {{ include_file }}
+{% endfor %}
+{# item.include_file is deprecated #}
+{% else %}
     File = {{ item.include_file }}
+{% endif %}
   }
   # Things that usually have to be excluded
   # You have to exclude /var/lib/bareos/storage
@@ -27,9 +34,15 @@ FileSet {
 {% for file in bareos_excludes %}
     File = {{ file }}
 {% endfor %}
+{% if item.exclude_files is defined %}
+{% for exclude_file in item.exclude_files %}
+    File = {{ exclude_file }}
+{% endfor %}
+{% endif %}
+{# item.exclude_file is deprecated #}
 {% if item.exclude_file is defined %}
-{% for line in item.exclude_file %}
-    File = {{ line }}
+{% for exclude_file in item.exclude_file %}
+    File = {{ exclude_file }}
 {% endfor %}
 {% endif %}
   }
