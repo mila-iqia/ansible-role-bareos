@@ -1,7 +1,7 @@
 Director {                            # define myself
   Name = bareos-dir
   QueryFile = "/usr/lib/bareos/scripts/query.sql"
-  Maximum Concurrent Jobs = 50
+  Maximum Concurrent Jobs = {{ bareos_dir_maximum_concurrent_jobs | default('50') }}
   Password = "{{ bareos_director_password  }}"
   Messages = Daemon
   Auditing = yes

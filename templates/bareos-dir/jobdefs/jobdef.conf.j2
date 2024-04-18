@@ -55,7 +55,7 @@ Keep the legacy defaults when the template is used to define JobDefs resources
 {% if item.max_concurrent_jobs is defined %}
   Maximum Concurrent Jobs = {{ item.max_concurrent_jobs }}
 {% elif _resource_type == 'JobDefs' %}
-  Maximum Concurrent Jobs = 50
+  Maximum Concurrent Jobs = {{ item.max_concurrent_jobs | default('50') }}
 {% endif %}
 {% if item.allow_dup_jobs is defined %}
   Allow Duplicate Jobs = {{ item.allow_dup_jobs }}
