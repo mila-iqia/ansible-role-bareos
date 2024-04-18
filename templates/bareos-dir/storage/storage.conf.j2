@@ -4,8 +4,12 @@ Storage {
   Address = "{{ item.bareos_dir_ip }}"
   Password = "{{ bareos_storage_password }}"
   Media Type = {{ item.media_type | default('File') }}
-{% for dev in item.device %}
-  Device = {{ item.device }}
+{% if item.devices is defined %}
+{% for device in item.devices %}
+  Device = {{ device }}
 {% endfor %}
-  Maximum Concurrent Jobs = {{ item.conc_jobs | default('50') }}
+{% else %}
+  Device = {{ item.device }}
+{% endif %}
+  Maximum Concurrent Jobs = {{ item.maximum_concurrent_jobs | default('50') }}
 }
