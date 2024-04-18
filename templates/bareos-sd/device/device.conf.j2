@@ -8,5 +8,5 @@ Device {
   AutomaticMount = yes;               # when device opened, read it
   RemovableMedia = no;
   AlwaysOpen = no;
-  Maximum Concurrent Jobs = 50
+  Maximum Concurrent Jobs = {{ item.conc_jobs | default('50') }}
 }
