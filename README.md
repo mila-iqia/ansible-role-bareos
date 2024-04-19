@@ -13,8 +13,10 @@ __Note:__ More options can be seen in `defaults/main.yml`
 - `bareos_sensu_postgres_pass` - Set pass for user sensu to postgresql
 - `bareos_email` - Email address used for messages (Daemon, Standard) and Catalog bootstrap
 - `bareos_dir_ip_eth` - Director ethernet IP address
+- `bareos_dir_max_concurrent_jobs` - [Optional] Director-level maximum concurrent jobs, defaults to 50
 - `bareos_director` - If you need to override backup director IP address on your client's /etc/hosts
 - `bareos_repo` - Defaults to Bareos Community Repository. Can be changed to use the Bareos Subscription Repository
+- `bareos_sd_max_concurrent_jobs` - [Optional] SD-level maximum concurrent jobs, defaults to 50
 ```
 bareos_director:
   ip: 10.0.0.1
@@ -34,6 +36,7 @@ bareos_clients:
     director_ip: 10.0.0.1               # optional
     director_name: backup               # optional
     max_job_bandwidth: 1 mb/s           # optional
+    max_concurrent_jobs: 42             # optional, defaults to '20'
 ```
 
 - `bareos_filesets`: List of filesets in following format:
@@ -141,6 +144,7 @@ bareos_jobdefs:
     full_pool: FullFoo
     incr_pool: IncrementalFoo
     type: JOB_TYPE                      # optional, defaults to 'Backup'
+    max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
 
 `bareos_jobs`: List of jobs in following format:
