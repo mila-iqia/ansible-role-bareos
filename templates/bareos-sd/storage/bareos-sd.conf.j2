@@ -1,6 +1,6 @@
 Storage {
   Name = {{ inventory_hostname }}-sd
-  Maximum Concurrent Jobs = {{ bareos_sd_maximum_concurrent_jobs | default('50') }}
+  Maximum Concurrent Jobs = {{ bareos_sd_max_concurrent_jobs | default('50') }}
 
   # remove comment from "Plugin Directory" to load plugins from specified directory.
   # if "Plugin Names" is defined, only the specified plugins will be loaded,

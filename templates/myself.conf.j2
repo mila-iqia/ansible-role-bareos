@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 Client {
   Name = {{ item.name }}
-  Maximum Concurrent Jobs = {{ bareos_client_maximum_concurrent_jobs | default('20') }}
+  Maximum Concurrent Jobs = {{ item.max_concurrent_jobs | default('20') }}
 {% if item.max_job_bandwidth is defined %}
   Maximum Bandwidth Per Job = {{ item.max_job_bandwidth }}
 {% endif %}
