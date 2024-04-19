@@ -11,5 +11,5 @@ Storage {
 {% else %}
   Device = {{ item.device }}
 {% endif %}
-  Maximum Concurrent Jobs = {{ item.maximum_concurrent_jobs | default('50') }}
+  Maximum Concurrent Jobs = {{ item.max_concurrent_jobs | default('50') }}
 }

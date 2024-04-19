@@ -85,6 +85,18 @@ bareos_dir_storage:
     device: FileStorageFoo
     bareos_dir_ip: 10.0.0.1
     media_type: File2                   # optional, defaults to 'File'
+    max_concurrent_jobs: 42             # optional, defaults to '50'
+```
+`device` can also become `devices` if you have multiple devices :
+```
+bareos_dir_storage:
+  - name: FileFoo
+    devices:
+        - FileStorageFoo
+        - FileStorageBar
+    bareos_dir_ip: 10.0.0.1
+    media_type: File2                   # optional, defaults to 'File'
+    max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
 
 `bareos_devices`: List of devices in following format:
@@ -99,6 +111,7 @@ bareos_devices:
     opts: ''                            # optional, for ansible.posix.mount
     state: 'mounted'                    # default, for ansible.posix.mount
     media_type: File2                   # optional, defaults to 'File'
+    max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
 
 > [!WARNING]
