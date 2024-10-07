@@ -78,4 +78,7 @@ Keep the legacy defaults when the template is used to define JobDefs resources
 {% if item.spool_data is defined %}
   Spool Data = {{ item.spool_data }}
 {% endif %}
+{% if item.enabled is defined %}
+  Enabled = {{ item.enabled }}
+{% endif %}
 }
