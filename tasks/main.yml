@@ -17,12 +17,12 @@
 
 - name: Add BareOS apt-key
   apt_key:
-    url: "{{ bareos_repo }}/Release.key"
+    url: "{{ bareos_repo_key }}"
   when: ansible_os_family == 'Debian'
 
 - name: Ensure BareOS repo is present Debian
-  apt_repository:
-    repo: "deb {{ bareos_repo }}/ /"
+  ansible.builtin.apt_repository:
+    repo: "{{ bareos_repository }}"
   when: ansible_os_family == 'Debian'
 
 - name: Import GPG key
