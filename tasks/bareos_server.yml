@@ -117,18 +117,6 @@
   loop: "{{ bareos_schedules }}"
   when: bareos_schedules is defined
 
-- name: Create bareos jobdef config files
-  vars:
-    _resource_type: 'JobDefs'
-  template:
-    src: bareos-dir/jobdefs/jobdef.conf.j2
-    dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf
-    owner: bareos
-    group: bareos
-    mode: '0640'
-  loop: "{{ bareos_jobdefs }}"
-  when: bareos_jobdefs is defined
-
 - name: Create bareos catalog job config file
   template:
     src: bareos-dir/job/BackupCatalog.conf.j2
@@ -136,18 +124,6 @@
     owner: bareos
     group: bareos
     mode: '0640'
-
-- name: Create bareos job config files
-  vars:
-    _resource_type: 'Job'
-  template:
-    src: bareos-dir/job/job.conf.j2
-    dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
-    owner: bareos
-    group: bareos
-    mode: '0640'
-  loop: "{{ bareos_jobs }}"
-  when: bareos_jobs is defined
 
 - name: Create bareos messages config files
   template:

@@ -81,14 +81,31 @@
     ( 'Failed' in _bconsole_output.stdout )
   changed_when: false
 
-- name: Add backup job
+- name: Create bareos jobdef config files
+  vars:
+    _resource_type: 'JobDefs'
   template:
-    src: backup-job.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/job/backup-{{ item.name }}.conf"
-    mode: 0640
+    src: bareos-dir/jobdefs/jobdef.conf.j2
+    dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf
     owner: bareos
     group: bareos
-  when: item.enable_backup_job
+    mode: '0640'
+  loop: "{{ bareos_jobdefs }}"
+  when: bareos_jobdefs is defined
+  register: _bareos_backup_job
+  notify: Reload bareos server
+
+- name: Create bareos job config files
+  vars:
+    _resource_type: 'Job'
+  template:
+    src: bareos-dir/job/job.conf.j2
+    dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
+    owner: bareos
+    group: bareos
+    mode: '0640'
+  loop: "{{ bareos_jobs }}"
+  when: bareos_jobs is defined
   register: _bareos_backup_job
   notify: Reload bareos server
 
