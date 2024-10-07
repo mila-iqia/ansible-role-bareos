@@ -4,3 +4,4 @@ bareos_db_package: postgresql-15
 _bareos_support_packages:
   - gpg
   - gpgv2
+  - acl
