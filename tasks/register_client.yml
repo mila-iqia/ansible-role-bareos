@@ -112,17 +112,6 @@
 - name: Flush handlers, to make sure bareos is reloaded
   meta: flush_handlers
 
-- name: Start first backup
-  shell: >
-    echo
-    "run job=backup-{{ item.name }} client={{ item.name }} yes"
-    | bconsole
-  register: _bconsole_output
-  failed_when: ('Error' in _bconsole_output.stdout) or ('Failed' in _bconsole_output.stdout) or ('not found' in _bconsole_output.stdout)
-  when:
-    - item.autostart | default(true)
-    - _bareos_backup_job.changed
-
 - name: Update client address if changed
   lineinfile:
     path: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf

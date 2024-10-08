@@ -17,6 +17,7 @@ __Note:__ More options can be seen in `defaults/main.yml`
 - `bareos_director` - If you need to override backup director IP address on your client's /etc/hosts
 - `bareos_repo` - Defaults to Bareos Community Repository. Can be changed to use the Bareos Subscription Repository
 - `bareos_sd_max_concurrent_jobs` - [Optional] SD-level maximum concurrent jobs, defaults to 50
+- `bareos_catalog_backup_script` - You need to set it to `/usr/lib/bareos/scripts/make_catalog_backup` if using Bareos >=23
 ```
 bareos_director:
   ip: 10.0.0.1
@@ -32,7 +33,6 @@ bareos_clients:
     password: MySuperSecretPassword
     enable_backup_job: true
     state: present                      # optional
-    autostart: true                     # optional
     director_ip: 10.0.0.1               # optional
     director_name: backup               # optional
     max_job_bandwidth: 1 mb/s           # optional
@@ -160,7 +160,6 @@ __NOTES:__
 - `ansible_delegate_hostname` must match `inventory_hostname` in ansible inventory list.
 Some tasks will be delegated from backup server to this client
 - `state` - When set to `absent`, client will be removed from server config (default: `present`)
-- `autostart` - Schedule first backup right away (default: `true`)
 - `director_ip` - [Optional] Same as `bareos_director`, just different place to setup
 - `director_name` - [Optional] Same as `bareos_director`, just different place to setup
 
