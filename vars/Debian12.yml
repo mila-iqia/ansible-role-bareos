@@ -2,6 +2,6 @@
 bareos_os_version: Debian_12
 bareos_db_package: postgresql-15
 _bareos_support_packages:
+  - acl
   - gpg
   - gpgv2
-  - acl
