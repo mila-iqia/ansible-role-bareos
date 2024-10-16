@@ -81,36 +81,30 @@
     ( 'Failed' in _bconsole_output.stdout )
   changed_when: false
 
-- name: Create bareos jobdef config files
-  vars:
-    _resource_type: 'JobDefs'
+- name: Add backup job
   template:
-    src: bareos-dir/jobdefs/jobdef.conf.j2
-    dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf
+    src: backup-job.conf.j2
+    dest: "/etc/bareos/bareos-dir.d/job/backup-{{ item.name }}.conf"
+    mode: 0640
     owner: bareos
     group: bareos
-    mode: '0640'
-  loop: "{{ bareos_jobdefs }}"
-  when: bareos_jobdefs is defined
-  register: _bareos_backup_job
-  notify: Reload bareos server
-
-- name: Create bareos job config files
-  vars:
-    _resource_type: 'Job'
-  template:
-    src: bareos-dir/job/job.conf.j2
-    dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
-    owner: bareos
-    group: bareos
-    mode: '0640'
-  loop: "{{ bareos_jobs }}"
-  when: bareos_jobs is defined
+  when: item.enable_backup_job
   register: _bareos_backup_job
   notify: Reload bareos server
 
 - name: Flush handlers, to make sure bareos is reloaded
   meta: flush_handlers
+
+- name: Start first backup
+  shell: >
+    echo
+    "run job=backup-{{ item.name }} client={{ item.name }} yes"
+    | bconsole
+  register: _bconsole_output
+  failed_when: ('Error' in _bconsole_output.stdout) or ('Failed' in _bconsole_output.stdout) or ('not found' in _bconsole_output.stdout)
+  when:
+    - item.autostart | default(false)
+    - _bareos_backup_job.changed
 
 - name: Update client address if changed
   lineinfile:

@@ -33,6 +33,7 @@ bareos_clients:
     password: MySuperSecretPassword
     enable_backup_job: true
     state: present                      # optional
+    autostart: true                     # optional
     director_ip: 10.0.0.1               # optional
     director_name: backup               # optional
     max_job_bandwidth: 1 mb/s           # optional
@@ -159,7 +160,9 @@ __NOTES:__
 
 - `ansible_delegate_hostname` must match `inventory_hostname` in ansible inventory list.
 Some tasks will be delegated from backup server to this client
+- `enable_backup_job` - Will create backup job `DefaultJobLinux`
 - `state` - When set to `absent`, client will be removed from server config (default: `present`)
+- `autostart` - Schedule first backup right away (default: `false`)
 - `director_ip` - [Optional] Same as `bareos_director`, just different place to setup
 - `director_name` - [Optional] Same as `bareos_director`, just different place to setup
 
