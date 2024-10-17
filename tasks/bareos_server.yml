@@ -37,7 +37,7 @@
       ansible.builtin.file:
         path: "/etc/bareos/bareos-dir.d/"
         state: directory
-        recurse: yes
+        recurse: true
         group: postgres
       changed_when: false
 
@@ -62,7 +62,7 @@
       ansible.builtin.file:
         path: "/etc/bareos/bareos-dir.d/"
         state: directory
-        recurse: yes
+        recurse: true
         group: bareos
       changed_when: false
 
