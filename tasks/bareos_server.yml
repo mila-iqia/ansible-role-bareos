@@ -13,12 +13,6 @@
     line: '  dbpassword = "{{ bareos_postgres_pass }}"'
   when: bareos_postgres_pass is defined
 
-- name: Remove dbaddress from catalog configuration
-  ansible.builtin.lineinfile:
-    path: /etc/bareos/bareos-dir.d/catalog/MyCatalog.conf
-    regexp: '^  dbaddress ='
-    state: absent
-
 - name: Ensure bareos postgresql is installed
   apt:
     name: bareos-database-postgresql
@@ -39,6 +33,14 @@
 - name: Setup bareos DB
   when: bareos_setup_db
   block:
+    - name: Recursively change bareos-dir directory ownership group to postgres
+      ansible.builtin.file:
+        path: "/etc/bareos/bareos-dir.d/"
+        state: directory
+        recurse: true
+        group: postgres
+      changed_when: false
+
     - name: Check that bareos DB exists
       shell: psql -lqt | cut -d \| -f 1 | grep -qw bareos
       become: true
@@ -55,6 +57,14 @@
         /usr/lib/bareos/scripts/make_bareos_tables &&
         /usr/lib/bareos/scripts/grant_bareos_privileges
       when: _bareos_db_exists.rc != 0
+
+    - name: Recursively change bareos-dir directory ownership group to bareos
+      ansible.builtin.file:
+        path: "/etc/bareos/bareos-dir.d/"
+        state: directory
+        recurse: true
+        group: bareos
+      changed_when: false
 
 - name: Setup bareos DB monitoring
   when: bareos_setup_db_sensu

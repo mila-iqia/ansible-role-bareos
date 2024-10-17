@@ -17,6 +17,7 @@ __Note:__ More options can be seen in `defaults/main.yml`
 - `bareos_director` - If you need to override backup director IP address on your client's /etc/hosts
 - `bareos_repo` - Defaults to Bareos Community Repository. Can be changed to use the Bareos Subscription Repository
 - `bareos_sd_max_concurrent_jobs` - [Optional] SD-level maximum concurrent jobs, defaults to 50
+- `bareos_catalog_backup_script` - You need to set it to `/usr/lib/bareos/scripts/make_catalog_backup` if using Bareos >=23
 ```
 bareos_director:
   ip: 10.0.0.1
@@ -86,7 +87,7 @@ bareos_pools:
 bareos_dir_storage:
   - name: FileFoo
     device: FileStorageFoo
-    bareos_dir_ip: 10.0.0.1
+    bareos_sd_ip: 10.0.0.1
     media_type: File2                   # optional, defaults to 'File'
     max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
@@ -97,7 +98,7 @@ bareos_dir_storage:
     devices:
         - FileStorageFoo
         - FileStorageBar
-    bareos_dir_ip: 10.0.0.1
+    bareos_sd_ip: 10.0.0.1
     media_type: File2                   # optional, defaults to 'File'
     max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
@@ -161,7 +162,7 @@ __NOTES:__
 Some tasks will be delegated from backup server to this client
 - `enable_backup_job` - Will create backup job `DefaultJobLinux`
 - `state` - When set to `absent`, client will be removed from server config (default: `present`)
-- `autostart` - Schedule first backup right away (default: `true`)
+- `autostart` - Schedule first backup right away (default: `false`)
 - `director_ip` - [Optional] Same as `bareos_director`, just different place to setup
 - `director_name` - [Optional] Same as `bareos_director`, just different place to setup
 

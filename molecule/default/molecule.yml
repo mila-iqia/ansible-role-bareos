@@ -5,14 +5,14 @@ driver:
   name: docker
 platforms:
   - name: server
-    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bullseye}"
+    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bookworm}"
     override_command: false
     privileged: true
     pre_build_image: true
     groups:
       - servers
   - name: client
-    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bullseye}"
+    image: "quay.io/actatux/${MOLECULE_DISTRO:-debian-systemd:bookworm}"
     override_command: false
     privileged: true
     pre_build_image: true

@@ -103,7 +103,7 @@
   register: _bconsole_output
   failed_when: ('Error' in _bconsole_output.stdout) or ('Failed' in _bconsole_output.stdout) or ('not found' in _bconsole_output.stdout)
   when:
-    - item.autostart | default(true)
+    - item.autostart | default(false)
     - _bareos_backup_job.changed
 
 - name: Update client address if changed

@@ -72,4 +72,13 @@ Keep the legacy defaults when the template is used to define JobDefs resources
 {% elif _resource_type == 'JobDefs' %}
   Cancel Queued Duplicates = yes
 {% endif %}
+{% if item.selection_type is defined %}
+  Selection Type = {{ item.selection_type }}
+{% endif %}
+{% if item.spool_data is defined %}
+  Spool Data = {{ item.spool_data }}
+{% endif %}
+{% if item.enabled is defined %}
+  Enabled = {{ item.enabled }}
+{% endif %}
 }

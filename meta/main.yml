@@ -5,7 +5,7 @@ galaxy_info:
   namespace: mila
   description: Role for managing bareos server & clients
   license: MIT
-  min_ansible_version: '2.14'
+  min_ansible_version: '2.16'
   platforms:
     - name: Debian
       versions:
