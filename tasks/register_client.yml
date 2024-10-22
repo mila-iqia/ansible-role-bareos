@@ -12,15 +12,6 @@
   register: _bconsole_output
   notify: Reload bareos server
 
-- name: Generate md5sum from password
-  shell: "echo -n {{ item.password }} | md5sum | awk '{print $1}'"
-  register: _bareos_md5
-  changed_when: false
-
-- name: Make password md5 more civilized variable
-  set_fact:
-    bareos_client_password_md5: "{{ _bareos_md5.stdout }}"
-
 - name: Make sure director's IP is defined on {{ item.name }}
   lineinfile:
     path: /etc/hosts
