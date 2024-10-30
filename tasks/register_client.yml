@@ -1,5 +1,5 @@
 ---
-- name: Create client {{ item.name }} config file
+- name: Create client config file for {{ item.name }}
   template:
     src: bareos-dir/client/client.conf.j2
     dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
