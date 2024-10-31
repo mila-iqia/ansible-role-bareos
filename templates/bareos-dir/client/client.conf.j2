@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+Client {
+  Name = "{{ item.name }}"
+  Address = "{{ item.address }}"
+  Password = "{{ item.password }}"
+{% if item.description is defined %}
+  Description = {{ item.description }}
+{% endif %}
+{% if item.max_concurrent_jobs is defined %}
+  Maximum Concurrent Jobs = {{ item.max_concurrent_jobs }}
+{% endif %}
+}

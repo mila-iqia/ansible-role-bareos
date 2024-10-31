@@ -92,6 +92,7 @@
     owner: bareos
     group: bareos
     mode: '0640'
+  notify: Reload bareos server
 
 - name: Create bareos fileset config files
   template:
@@ -102,6 +103,7 @@
     mode: '0640'
   loop: "{{ bareos_filesets }}"
   when: bareos_filesets is defined
+  notify: Reload bareos server
 
 - name: Create bareos pool config files
   template:
@@ -112,6 +114,7 @@
     mode: '0640'
   loop: "{{ bareos_pools }}"
   when: bareos_pools is defined
+  notify: Reload bareos server
 
 - name: Create bareos dir storage config files
   template:
@@ -122,6 +125,7 @@
     mode: '0640'
   loop: "{{ bareos_dir_storage }}"
   when: bareos_dir_storage is defined
+  notify: Reload bareos server
 
 - name: Create bareos schedule config files
   template:
@@ -132,6 +136,7 @@
     mode: '0640'
   loop: "{{ bareos_schedules }}"
   when: bareos_schedules is defined
+  notify: Reload bareos server
 
 - name: Create bareos jobdef config files
   vars:
@@ -144,6 +149,7 @@
     mode: '0640'
   loop: "{{ bareos_jobdefs }}"
   when: bareos_jobdefs is defined
+  notify: Reload bareos server
 
 - name: Create bareos catalog job config file
   template:
@@ -152,6 +158,7 @@
     owner: bareos
     group: bareos
     mode: '0640'
+  notify: Reload bareos server
 
 - name: Create bareos job config files
   vars:
@@ -164,6 +171,7 @@
     mode: '0640'
   loop: "{{ bareos_jobs }}"
   when: bareos_jobs is defined
+  notify: Reload bareos server
 
 - name: Create bareos messages config files
   template:
@@ -175,6 +183,7 @@
   loop:
     - { src: 'bareos-dir/messages/Daemon.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Daemon.conf' }
     - { src: 'bareos-dir/messages/Standard.conf.j2', dest: '/etc/bareos/bareos-dir.d/messages/Standard.conf' }
+  notify: Reload bareos server
 
 - name: Add bconsole config file
   template:
@@ -183,6 +192,7 @@
     mode: 0700
     owner: bareos
     group: bareos
+  notify: Reload bareos server
 
 - name: Add webui admin console
   template:

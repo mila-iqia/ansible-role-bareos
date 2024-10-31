@@ -1,15 +1,11 @@
 ---
-- name: Register client {{ item.name }}
-  shell: >
-    echo
-    "configure add client "
-    "name={{ item.name }} "
-    "address={{ item.address }} "
-    "password={{ item.password }}" |
-    bconsole
-  args:
-    creates: "/etc/bareos/bareos-dir.d/client/{{ item.name }}.conf"
-  register: _bconsole_output
+- name: Create client config file for {{ item.name }}
+  template:
+    src: bareos-dir/client/client.conf.j2
+    dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
+    owner: bareos
+    group: bareos
+    mode: '0640'
   notify: Reload bareos server
 
 - name: Generate md5sum from password

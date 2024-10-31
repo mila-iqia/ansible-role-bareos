@@ -12,7 +12,7 @@ Job {
   RunBeforeJob = "{{ bareos_catalog_backup_script }} MyCatalog"
 
   # This deletes the copy of the catalog
-  RunAfterJob  = "/usr/lib/bareos/scripts/delete_catalog_backup"
+  RunAfterJob  = "/usr/lib/bareos/scripts/delete_catalog_backup MyCatalog"
 
   # This sends the bootstrap via mail for disaster recovery.
   # Should be sent to another system, please change recipient accordingly
