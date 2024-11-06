@@ -101,10 +101,3 @@
   when:
     - item.autostart | default(false)
     - _bareos_backup_job.changed
-
-- name: Update client address if changed
-  lineinfile:
-    path: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
-    regexp: '^  Address = '
-    line: '  Address = {{ item.address }}'
-  notify: Reload bareos server
