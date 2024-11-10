@@ -62,6 +62,9 @@ Keep the legacy defaults when the template is used to define JobDefs resources
 {% elif _resource_type == 'JobDefs' %}
   Allow Duplicate Jobs = no
 {% endif %}
+{% if item.allow_mixed_priority is defined %}
+  Allow Mixed Priority = {{ item.allow_mixed_priority }}
+{% endif %}
 {% if item.cancel_lower_level_dup is defined %}
   Cancel Lower Level Duplicates = {{ item.cancel_lower_level_dup }}
 {% elif _resource_type == 'JobDefs' %}
