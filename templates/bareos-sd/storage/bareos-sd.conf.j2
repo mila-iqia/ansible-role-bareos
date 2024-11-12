@@ -1,6 +1,9 @@
 Storage {
   Name = {{ inventory_hostname }}-sd
   Maximum Concurrent Jobs = {{ bareos_sd_max_concurrent_jobs | default('50') }}
+{% if bareos_sd_file_device_concurrent_read is defined %}
+  File Device Concurrent Read = {{ bareos_sd_file_device_concurrent_read }}
+{% endif %}
 
   # remove comment from "Plugin Directory" to load plugins from specified directory.
   # if "Plugin Names" is defined, only the specified plugins will be loaded,

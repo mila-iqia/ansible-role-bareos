@@ -17,6 +17,7 @@ __Note:__ More options can be seen in `defaults/main.yml`
 - `bareos_director` - If you need to override backup director IP address on your client's /etc/hosts
 - `bareos_repo` - Defaults to Bareos Community Repository. Can be changed to use the Bareos Subscription Repository
 - `bareos_sd_max_concurrent_jobs` - [Optional] SD-level maximum concurrent jobs, defaults to 50
+- `bareos_sd_file_device_concurrent_read` - [Optional] SD-level specifies the maximum number of Jobs with the current Storage resource that can read concurrently
 - `bareos_catalog_backup_script` - You need to set it to `/usr/lib/bareos/scripts/make_catalog_backup` if using Bareos >=23
 ```
 bareos_director:
@@ -90,6 +91,7 @@ bareos_dir_storage:
     bareos_sd_ip: 10.0.0.1
     media_type: File2                   # optional, defaults to 'File'
     max_concurrent_jobs: 42             # optional, defaults to '50'
+    max_concurrent_read_jobs: 5         # optional
 ```
 `device` can also become `devices` if you have multiple devices :
 ```

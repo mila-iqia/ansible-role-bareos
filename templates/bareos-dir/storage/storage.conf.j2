@@ -12,4 +12,7 @@ Storage {
   Device = {{ item.device }}
 {% endif %}
   Maximum Concurrent Jobs = {{ item.max_concurrent_jobs | default('50') }}
+{% if item.max_concurrent_read_jobs is defined %}
+  Maximum Concurrent Read Jobs = {{ item.max_concurrent_read_jobs }}
+{% endif %}
 }
