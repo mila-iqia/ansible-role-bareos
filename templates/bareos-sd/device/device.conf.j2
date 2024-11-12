@@ -1,5 +1,9 @@
 # {{ ansible_managed }}
 Device {
+{% if item.count is defined %}
+  # Multiply this device Count times
+  Count = {{ item.count }}
+{% endif %}
   Name = "{{ item.name }}"
   Media Type = {{ item.media_type | default('File') }}
   Archive Device = {{ item.archive_device | default(item.arch_device) }}

@@ -114,6 +114,7 @@ bareos_devices:
     mode: '0750'                        # default
     opts: ''                            # optional, for ansible.posix.mount
     state: 'mounted'                    # default, for ansible.posix.mount
+    count: 5                            # optional, number of multiplied devices
     media_type: File2                   # optional, defaults to 'File'
     max_concurrent_jobs: 42             # optional, defaults to '50'
 ```
