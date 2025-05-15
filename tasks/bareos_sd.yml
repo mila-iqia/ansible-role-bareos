@@ -31,6 +31,7 @@
         dev: "{{ item.block_device }}"
         force: false
         state: present
+        opts: "{{ item.opts | default(omit) }}"
       loop: "{{ bareos_devices }}"
       # Create file system only when block_device starts with '/dev/'
       when:
