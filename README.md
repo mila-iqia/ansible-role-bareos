@@ -150,6 +150,8 @@ bareos_jobdefs:
     type: JOB_TYPE                      # optional, defaults to 'Backup'
     max_concurrent_jobs: 42             # optional, defaults to '50'
     allow_mixed_priority: 'yes'         # optional
+    client_run_before_job: "/etc/init.d/grafana-server stop"        # optional
+    client_run_after_job: "/etc/init.d/grafana-server start"        # optional
 ```
 
 `bareos_jobs`: List of jobs in following format:
