@@ -19,6 +19,12 @@ Keep the legacy defaults when the template is used to define JobDefs resources
 {% if item.client is defined %}
   Client = {{ item.client }}
 {% endif %}
+{% if item.client_run_after_job is defined %}
+  Client Run After Job = "{{ item.client_run_before_job }}"
+{% endif %}
+{% if item.client_run_before_job is defined %}
+  Client Run Before Job = "{{ item.client_run_before_job }}"
+{% endif %}
 {% if item.fileset is defined %}
   FileSet = "{{ item.fileset }}"
 {% endif %}
