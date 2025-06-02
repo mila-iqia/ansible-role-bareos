@@ -115,7 +115,7 @@ bareos_devices:
     fstype: 'ext4'                      # default
     mode: '0750'                        # default
     mkfs_opts: ''                       # optional, options for mkfs
-    opts: ''                            # optional, for ansible.posix.mount
+    mount_opts: ''                      # optional, for ansible.posix.mount
     state: 'mounted'                    # default, for ansible.posix.mount
     count: 5                            # optional, number of multiplied devices
     media_type: File2                   # optional, defaults to 'File'
@@ -125,6 +125,10 @@ bareos_devices:
 > [!WARNING]
 > The `bareos_devices[*].arch_device` is deprecated and replaced by
 > `bareos_devices[*].archive_device`.
+
+> [!WARNING]
+> The `bareos_devices[*].opts` is deprecated and replaced by
+> `bareos_devices[*].mount_opts`.
 
 `bareos_schedules`: List of schedules in following format:
 

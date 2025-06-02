@@ -25,6 +25,15 @@
 - name: Configure Storage Daemon block devices
   when: bareos_devices is defined
   block:
+    - name: Check for deprecated bareos_devices[*].opts variables
+      failed_when: false
+      ansible.builtin.fail:
+        msg: "WARNING: Variable `bareos_devices[*].opts` is deprecated"
+      loop: "{{ bareos_devices }}"
+      when:
+        - item.opts is defined
+        - item.mount_opts is not defined
+
     - name: Create file systems
       community.general.filesystem:
         fstype: "{{ item.fstype | default('ext4') }}"
@@ -43,7 +52,7 @@
         path: "{{ item.archive_device | default(item.arch_device) }}"
         src: "{{ item.block_device }}"
         fstype: "{{ item.fstype | default('ext4') }}"
-        opts: "{{ item.opts | default(omit) }}"
+        opts: "{{ item.mount_opts | default(item.opts | default(omit)) }}"
         state: "{{ item.state | default('mounted') }}"
       loop: "{{ bareos_devices }}"
       when: item.block_device is defined
