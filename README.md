@@ -114,6 +114,7 @@ bareos_devices:
     block_device: /dev/mapper/backup    # optional
     fstype: 'ext4'                      # default
     mode: '0750'                        # default
+    mkfs_opts: ''                       # optional, options for mkfs
     opts: ''                            # optional, for ansible.posix.mount
     state: 'mounted'                    # default, for ansible.posix.mount
     count: 5                            # optional, number of multiplied devices
