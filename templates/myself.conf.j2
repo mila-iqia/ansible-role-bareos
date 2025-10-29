@@ -5,4 +5,10 @@ Client {
 {% if item.max_job_bandwidth is defined %}
   Maximum Bandwidth Per Job = {{ item.max_job_bandwidth }}
 {% endif %}
+{% if item.plugin_directory is defined %}
+  Plugin Directory = {{ item.plugin_directory }}
+{% endif %}
+{% if item.plugin_names is defined %}
+  Plugin Names = {{ item.plugin_names }}
+{% endif %}
 }
