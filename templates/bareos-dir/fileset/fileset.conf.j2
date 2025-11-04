@@ -18,6 +18,11 @@ FileSet {
     }
 {% endfor %}
 {% endif %}
+{% if item.plugin is defined %}
+    Plugin = "{{ item.plugin.name }}"
+             ":module_name={{ item.plugin.module_name }}"
+             ":mycnf={{ item.plugin.mycnf }}"
+{% endif %}
 {% if item.include_files is defined %}
 {% for include_file in item.include_files %}
     File = {{ include_file }}
