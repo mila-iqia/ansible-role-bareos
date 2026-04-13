@@ -12,10 +12,12 @@ galaxy_info:
         - buster
         - bullseye
         - bookworm
+        - trixie
     - name: Ubuntu
       versions:
         - focal
         - jammy
+        - noble
   galaxy_tags:
     - system
     - debian
