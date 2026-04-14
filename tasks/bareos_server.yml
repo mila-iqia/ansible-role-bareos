@@ -72,7 +72,7 @@
     - name: Create Postgres Monitoring User
       become: true
       become_user: postgres
-      postgresql_user:
+      community.postgresql.postgresql_user:
         name: sensu
         password: "{{ bareos_sensu_postgres_pass }}"
 
