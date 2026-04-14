@@ -15,22 +15,14 @@
     name: gpg-agent
   when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version('11','>=')
 
-- name: Install GPG-KEY with apt_key
-  ansible.builtin.apt_key:
-    url: "{{ bareos_repo_key }}"
-  when:
-    - ansible_os_family == 'Debian'
-    - ansible_facts['distribution_major_version'] | int < 13
-
 - name: Install GPG-KEY with get_url
   ansible.builtin.get_url:
-    url: "{{ bareos_gpg_key }}"
+    url: "{{ bareos_repo_key }}"
     dest: /etc/apt/keyrings/bareos-keyring.gpg
     mode: '0644'
   when:
     - ansible_os_family == 'Debian'
-    - cobbler_gpg_key is defined
-    - ansible_facts['distribution_major_version'] | int >= 13
+    - bareos_repo_key is defined
 
 - name: Ensure BareOS repo is present Debian
   ansible.builtin.apt_repository:
