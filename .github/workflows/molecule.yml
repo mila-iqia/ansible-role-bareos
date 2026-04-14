@@ -36,7 +36,9 @@ jobs:
         uses: actions/setup-python@v3
 
       - name: Install packages
-        run: pip install tox
+        run: |
+          pip install tox
+          ansible-galaxy collection install community.postgresql
 
       - name: Run molecule test
         run: |
