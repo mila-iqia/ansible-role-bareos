@@ -42,4 +42,5 @@ jobs:
 
       - name: Run molecule test
         run: |
+          export ANSIBLE_COLLECTIONS_PATH=$HOME/.ansible/collections
           cd mila.bareos && tox
