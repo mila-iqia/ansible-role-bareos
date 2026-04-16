@@ -33,11 +33,16 @@ jobs:
           path: mila.bareos
 
       - name: Setup python environment
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
       - name: Install packages
-        run: pip install tox
+        run: |
+          pip install tox
+          ansible-galaxy collection install community.postgresql
 
       - name: Run molecule test
         run: |
+          export ANSIBLE_COLLECTIONS_PATH=$HOME/.ansible/collections
           cd mila.bareos && tox
